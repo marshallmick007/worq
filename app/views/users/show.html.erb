@@ -12,7 +12,7 @@
    <h2>Categories</h2> <%= link_to 'Add Category', new_category_path %>
     <ul>
     <% for c in @user.categories %>
-      <li><%= c.name %>
+      <li><%= c.name %> <%= link_to '[x]', c, :confirm => "Delete the category '#{c.name}'?", :method => :delete %></li>
     <% end %>
   </ul>
 

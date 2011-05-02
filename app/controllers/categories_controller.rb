@@ -14,4 +14,20 @@ class CategoriesController < ApplicationController
       render "new"
     end
   end
+
+  def destroy
+    @category = Category.find(params[:id])
+    @category.destroy
+
+    @notice = @category.name + " deleted"
+    respond_to do |format|
+      if @category.destroyed?
+        format.html { redirect_to user_path, :notice => @notice }
+        format.json { head :ok }
+      else
+        format.html { redirect_to user_path, :notice => "Unable to delete this category" }
+      end
+    end
+    
+  end
 end
