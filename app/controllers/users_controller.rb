@@ -33,4 +33,13 @@ class UsersController < ApplicationController
 
     end
   end
+
+  def show
+    if logged_in?
+      @user = current_user
+    else
+      flash.now.alert = "Please log in"
+      redirect_to root_url, :notice => "Please log in"
+    end
+  end
 end

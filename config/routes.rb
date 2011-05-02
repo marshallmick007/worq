@@ -67,5 +67,6 @@ Worq::Application.routes.draw do
   get "log_out" => "sessions#destroy", :as => "log_out"
   match "profile" => "users#edit"
   resources :users
+  resources :categories
   #resources :sessions
 end

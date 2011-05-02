@@ -36,4 +36,9 @@ class User < ActiveRecord::Base
       self.password_hash = BCrypt::Password.create( password )
     end
   end
+
+  # http://nithinbekal.com/2010/rails-seo-friendly-urls-using-to_param/
+  def to_param
+    username
+  end
 end

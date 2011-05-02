@@ -1,0 +1,18 @@
+  <% if @user.errors.any? %>
+    <div class="error_messages">
+      <h2>Form is invalid</h2>
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <h1><%= @user.username %></h1>
+   <h2>Categories</h2> <%= link_to 'Add Category', new_category_path %>
+    <ul>
+    <% for c in @user.categories %>
+      <li><%= c.name %>
+    <% end %>
+  </ul>
+
