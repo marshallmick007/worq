@@ -9,10 +9,14 @@
     </div>
   <% end %>
   <h1><%= @user.username %></h1>
-   <h2>Categories</h2> <%= link_to 'Add Category', new_category_path %>
+   <h2>Categories</h2> <%= link_to 'Add Category', new_user_category_path %>
     <ul>
     <% for c in @user.categories %>
-      <li><%= c.name %> <%= link_to '[x]', c, :confirm => "Delete the category '#{c.name}'?", :method => :delete %></li>
+      <li><%= link_to c.name, user_category_path(:id => c.id), :method => :get  %> 
+
+      <%= 
+        link_to '[x]', user_category_path(:id => c.id), :confirm => "Delete the category '#{c.name}'?", :method => :delete 
+      %></li>
     <% end %>
   </ul>
 

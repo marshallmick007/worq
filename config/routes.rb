@@ -66,7 +66,15 @@ Worq::Application.routes.draw do
   post "log_in" => "sessions#create"
   get "log_out" => "sessions#destroy", :as => "log_out"
   match "profile" => "users#edit"
-  resources :users
-  resources :categories
-  #resources :sessions
+
+
+  scope ":username", :as => "user" do
+    #match ":username" => "users#show"
+    resources :categories
+  end
+
+  match ":username" => "users#show", :as => "user"
+
+  #resources :users
+     #resources :sessions
 end
