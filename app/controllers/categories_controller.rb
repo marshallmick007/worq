@@ -7,10 +7,16 @@ class CategoriesController < ApplicationController
 
   respond_to :html, :json
 
+  #
+  # Views a new Category form
+  #
   def new
     @category = Category.new
   end
 
+  #
+  # Creates a new Category
+  #
   def create
     @user = current_user
     @category = Category.new(params[:category])
@@ -24,6 +30,9 @@ class CategoriesController < ApplicationController
     end
   end
 
+  #
+  # Shows an existing Category
+  #
   def show
     @user = current_user
     respond_to do |format|
@@ -38,8 +47,22 @@ class CategoriesController < ApplicationController
     end
   end
 
+  #
+  # Deletes a category
+  #
   def destroy
     @category = Category.find(params[:id])
+
+    # Make sure we are only deleting a category that
+    # belongs to the current user
+    if @category.user_id != current_user.id
+      respond_to do |format|
+        format.html { redirect_to user_path(current_user), :notice => "No Category to Delete" }
+        format.json { head :access_denied }
+      end
+      return
+    end
+
     @category.destroy
     @n = @category.name
     @notice =  "Category '#{@n}' deleted"
@@ -50,7 +73,9 @@ class CategoriesController < ApplicationController
         format.json { head :ok }
       else
         format.html { redirect_to user_path(current_user), :notice => "Unable to delete this category" }
+        format.json { head :bad_request }
       end
     end
   end
+
 end
