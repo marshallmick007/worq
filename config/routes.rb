@@ -62,10 +62,11 @@ Worq::Application.routes.draw do
   
   root :to => "home#index"
   get "sign_up" => "users#new", :as => "sign_up"
+  post "sign_up" => "users#create", :as => "users"
   get "log_in" => "sessions#new", :as => "log_in"
   post "log_in" => "sessions#create"
   get "log_out" => "sessions#destroy", :as => "log_out"
-  match "profile" => "users#edit"
+  match ":username/profile" => "users#edit", :as => "profile"
 
 
   scope ":username", :as => "user" do

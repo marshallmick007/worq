@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  
+  before_filter :pre_auth?, :except => [ :new ]
+  
   #http://asciicasts.com/episodes/250-authentication-from-scratch
   def new
     @user = User.new
@@ -35,11 +38,17 @@ class UsersController < ApplicationController
   end
 
   def show
-    if logged_in?
+
+    respond_to do |format|
       @user = current_user
-    else
-      flash.now.alert = "Please log in"
-      redirect_to root_url, :notice => "Please log in"
+      format.html { }
+      format.json { render :json => @user.categories }
+      #if logged_in?
+      #  @user = current_user
+      #else
+      #  flash.now.alert = "Please log in"
+      #  #redirect_to root_url, :notice => "Please log in"
+      #end
     end
   end
 end
