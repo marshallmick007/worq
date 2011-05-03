@@ -2,6 +2,9 @@ class CategoriesController < ApplicationController
   #TODO: Fix up respond_with
   #      http://ryandaigle.com/articles/2009/8/6/what-s-new-in-edge-rails-cleaner-restful-controllers-w-respond_with
   #      http://teamco-anthill.blogspot.com/2010/04/rails-http-status-code-to-symbol.html
+  
+  before_filter :pre_auth?
+
   respond_to :html, :json
 
   def new
@@ -26,7 +29,7 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       if @user.categories.exists?(params[:id])
         @category = @user.categories.find(params[:id])
-        format.html {}
+        format.html
         format.json { render :json => @category }
       else
         format.html { redirect_to user_path(current_user), :notice => "No such category exists" }

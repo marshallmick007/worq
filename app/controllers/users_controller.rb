@@ -41,7 +41,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       @user = current_user
-      format.html { }
+      format.html
       format.json { render :json => @user.categories }
       #if logged_in?
       #  @user = current_user
